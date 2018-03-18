@@ -1,4 +1,4 @@
-# Setup Kubernetes cluster
+# Setup Kubernetes cluster in Debian 9
 
 ## Basic software
 
@@ -59,7 +59,7 @@ apt-get install -y kubelet kubeadm kubectl
 kubeadm init
 ```
 
-### Initialization with an specific pod network (Flannel)
+### Initialization with a specific pod network (Flannel)
 
 ```
 sysctl net.bridge.bridge-nf-call-iptables="1"
@@ -83,7 +83,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 You can now join any number of machines by running the following on each node /**as root**/:
 
-  kubeadm join --token 0f538e.ff7741bc11169121 172.31.125.244:6443 --discovery-token-ca-cert-hash sha256:e371c77e97a2dc374a3a3a41384c318b4f13cf489273bf43c7bd3056adf8f442
+  kubeadm join --token 0f538e.ff7741bc11169121 IP_OF_K8S_MASTER:6443 --discovery-token-ca-cert-hash sha256:_supertoken_for_adding_nodes_to_k8s_cluster_
 
 - End of initialization message
 ----
@@ -104,14 +104,16 @@ kubectl get pods --all-namespaces
 - Install tools
 
 ```
----> See "Install Kubernetes"
+---> See "Install Kubernetes" and install with the same method as master:
+ - With docker from repository
+ - Adding NEW repo to install docker-ce
 
 ```
 
 - Join pod to cluster (/**as root**/)
 
 ```
-  kubeadm join --token 0f538e.ff7741bc11169121 172.31.125.244:6443 --discovery-token-ca-cert-hash sha256:e371c77e97a2dc374a3a3a41384c318b4f13cf489273bf43c7bd3056adf8f442
+  kubeadm join --token 0f538e.ff7741bc11169121 IP_OF_K8S_MASTER:6443 --discovery-token-ca-cert-hash sha256:_supertoken_for_adding_nodes_to_k8s_cluster_
 ```
 
 - Check STATUS of cluster in the Kube Master
